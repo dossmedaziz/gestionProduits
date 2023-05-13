@@ -1,22 +1,22 @@
 package com.helloSpringBoot.gestionProduits.controllers;
 
+import com.helloSpringBoot.gestionProduits.entities.Product;
+import com.helloSpringBoot.gestionProduits.services.IServiceCategory;
 import com.helloSpringBoot.gestionProduits.services.IServiceProduct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("products")
 @AllArgsConstructor
 public class ProductController {
 
-    IServiceProduct sp;
+    private IServiceProduct sp;
+    private IServiceCategory sc;
 
-    @GetMapping("/home")
+    @GetMapping("")
     public String getAll(@RequestParam(name = "mc", defaultValue = "") String mc, Model m) {
         m.addAttribute("products", sp.getProductsByMC(mc));
         m.addAttribute("keyWord", mc);
@@ -26,6 +26,39 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Integer id) {
         sp.deleteProduct(id);
-        return "redirect:/home";
+        return "redirect:/products";
+    }
+
+
+    @GetMapping("/create")
+    public String create(Model m) {
+        m.addAttribute("categories", sc.getAllCategories());
+
+
+        return "addProduct.html";
+    }
+
+    @PostMapping("/store")
+    public String store(@ModelAttribute Product p) {
+
+        sp.saveProduct(p);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Integer id, Model m) {
+        m.addAttribute("selectedProduct", sp.getProductById(id));
+        m.addAttribute("categories", sc.getAllCategories());
+
+
+        return "editProduct.html";
+
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(@PathVariable Integer id, @ModelAttribute Product p) {
+        System.out.println("update function is called with id: " + id);
+        sp.saveProduct(p);
+        return "redirect:/products";
     }
 }

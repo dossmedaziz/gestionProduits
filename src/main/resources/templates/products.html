@@ -17,6 +17,7 @@
                 <input name="mc" placeholder="search..." th:value="${keyWord}"/>
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
+            <a class="btn btn-secondary fa fa-plus" th:href="@{products/create}"></a>
         </div>
 
         <div class="card-body">
@@ -39,8 +40,8 @@
                     <td th:text="${p.quantity}"></td>
                     <td th:text="${p.category.name}"></td>
                     <td>
-                        <a class="btn btn-danger fa fa-trash" th:href="@{/delete/{id}(id=${p.id})}"></a>
-                        <a class="btn btn-warning fa fa-edit"></a>
+                        <a class="btn btn-danger fa fa-trash" th:href="@{products/delete/{id}(id=${p.id})}"></a>
+                        <a class="btn btn-warning fa fa-edit" th:href="@{/products/{id}/edit(id=${p.id})}"></a>
                     </td>
                 </tr>
                 </tbody>

@@ -3,9 +3,11 @@ package com.helloSpringBoot.gestionProduits.services.implementations;
 import com.helloSpringBoot.gestionProduits.entities.Category;
 import com.helloSpringBoot.gestionProduits.repositories.CategoryRepository;
 import com.helloSpringBoot.gestionProduits.services.IServiceCategory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryService implements IServiceCategory {
 
     private CategoryRepository cr;
