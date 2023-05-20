@@ -4,6 +4,8 @@ import com.helloSpringBoot.gestionProduits.entities.Product;
 import com.helloSpringBoot.gestionProduits.repositories.ProductRepository;
 import com.helloSpringBoot.gestionProduits.services.IServiceProduct;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +36,8 @@ public class ProductService implements IServiceProduct {
     }
 
     @Override
-    public List<Product> getProductsByMC(String mc) {
-        return pr.findByNameContains(mc);
+    public Page<Product> getProductsByMC(String mc, Pageable p) {
+        return pr.findByNameContains(mc , p);
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.helloSpringBoot.gestionProduits.entities.Product;
 import com.helloSpringBoot.gestionProduits.services.IServiceCategory;
 import com.helloSpringBoot.gestionProduits.services.IServiceProduct;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,14 @@ public class ProductController {
     private IServiceCategory sc;
 
     @GetMapping("")
-    public String getAll(@RequestParam(name = "mc", defaultValue = "") String mc, Model m) {
-        m.addAttribute("products", sp.getProductsByMC(mc));
+    public String getAll(@RequestParam(name = "mc", defaultValue = "") String mc, Model m,
+                         @RequestParam(name = "page", defaultValue = "1") int page,
+                         @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Page<Product> pages = sp.getProductsByMC(mc, PageRequest.of(page - 1, size));
+        m.addAttribute("products", pages.getContent());
+        m.addAttribute("index", new int[pages.getTotalPages()]);
+        m.addAttribute("currentPage", pages.getNumber());
         m.addAttribute("keyWord", mc);
         return "products";
     }
