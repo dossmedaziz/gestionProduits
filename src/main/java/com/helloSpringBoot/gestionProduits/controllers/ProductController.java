@@ -32,6 +32,7 @@ public class ProductController {
 
     @GetMapping("/create")
     public String create(Model m) {
+        m.addAttribute("product", new Product());
         m.addAttribute("categories", sc.getAllCategories());
 
 
@@ -40,18 +41,17 @@ public class ProductController {
 
     @PostMapping("/store")
     public String store(@ModelAttribute Product p) {
-
         sp.saveProduct(p);
         return "redirect:/products";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Integer id, Model m) {
-        m.addAttribute("selectedProduct", sp.getProductById(id));
+        m.addAttribute("product", sp.getProductById(id));
         m.addAttribute("categories", sc.getAllCategories());
 
 
-        return "editProduct.html";
+        return "addProduct.html";
 
     }
 

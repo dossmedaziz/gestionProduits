@@ -19,26 +19,30 @@
             <form th:method="post" th:action="@{/products/store}">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="product_name"
-                           name="name">
+                           name="name" th:value="${product.name}">
                     <label for="product_name">Product Name</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="price" name="price">
+                    <input type="text" class="form-control" id="price" name="price" th:value="${product.price}">
                     <label for="price">Product Price</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="quantity" name="quantity">
+                    <input type="text" class="form-control" id="quantity" name="quantity"
+                           th:value="${product.quantity}">
                     <label for="quantity">Quantity</label>
                 </div>
 
                 <div class="form-floating">
                     <select class="form-select" id="floatingSelect" name="category">
                         <option selected>Choose</option>
-                        <option th:each="c:${categories}" th:text="${c.name}" th:value="${c.id}"></option>
+                        <option th:each="c:${categories}" th:text="${c.name}" th:value="${c.id}"
+                                th:selected="${product.category != null && product.category.id == c.id}"></option>
                     </select>
                     <label for="floatingSelect">Category</label>
                 </div>
+
+                <input th:type="hidden" th:value="${product.id}" th:name="id"/>
 
                 <button class="my-5  btn btn-primary" th:type="submit">Submit</button>
             </form>
