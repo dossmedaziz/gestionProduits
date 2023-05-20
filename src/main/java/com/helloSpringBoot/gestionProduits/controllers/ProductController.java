@@ -8,8 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("products")
@@ -49,7 +52,12 @@ public class ProductController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute Product p, @RequestParam("file") MultipartFile file) {
+    public String store(@ModelAttribute @Valid Product p, BindingResult br, @RequestParam("file") MultipartFile file, Model m) {
+        if (br.hasErrors()) {
+            m.addAttribute("categories", sc.getAllCategories());
+            return "addProduct.html";
+
+        }
         sp.saveProduct(p, file);
         return "redirect:/products";
     }
