@@ -25,4 +25,14 @@ public class CategoryService implements IServiceCategory {
     public List<Category> getAllCategories() {
         return cr.findAll();
     }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        cr.deleteById(id);
+    }
+
+    @Override
+    public Category getCategoryById(Integer id) {
+        return cr.findById(id).get();
+    }
 }

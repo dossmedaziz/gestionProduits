@@ -7,4 +7,9 @@ import java.util.List;
 public interface IServiceCategory {
     public void addCategory(Category c);
     public List<Category> getAllCategories();
+
+    public void deleteCategory(Integer id) ;
+
+    public Category getCategoryById(Integer id);
+
 }
