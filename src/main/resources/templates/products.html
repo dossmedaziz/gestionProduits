@@ -50,7 +50,7 @@
             </table>
             <ul class="nav nav-pills">
             <li th:each="i,c:${index}">
-                <a th:href="@{/products(mc=${mc} , page=${c.count})}"
+                <a th:href="@{/products(mc=${keyWord    } , page=${c.count})}"
                    th:text="${c.count}"
                    th:class="${c.count-1==currentPage}? 'btn btn-primary mx-2' : 'bt btn-outline-primary mx-2'"
                 >
