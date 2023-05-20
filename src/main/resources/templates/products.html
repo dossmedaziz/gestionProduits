@@ -25,6 +25,7 @@
                 <thead>
                 <tr>
                     <th>#ID</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -35,6 +36,11 @@
                 <tbody>
                 <tr th:each="p: ${products}">
                     <td th:text="${p.id}"></td>
+                    <td th:if="${p.image == null || p.image == ''}">
+                        <img src="/photos/zahy.png" width="50" height="50"/></td>
+                    <td th:unless="${p.image == null || p.image == ''}">
+                        <img th:src="@{${'/photos/'+p.image}}" width="50" height="50"/></td>
+
                     <td th:text="${p.name}"></td>
                     <td th:text="${p.price}"></td>
                     <td th:text="${p.quantity}"></td>
@@ -49,19 +55,18 @@
 
             </table>
             <ul class="nav nav-pills">
-            <li th:each="i,c:${index}">
-                <a th:href="@{/products(mc=${keyWord    } , page=${c.count})}"
-                   th:text="${c.count}"
-                   th:class="${c.count-1==currentPage}? 'btn btn-primary mx-2' : 'bt btn-outline-primary mx-2'"
-                >
+                <li th:each="i,c:${index}">
+                    <a th:href="@{/products(mc=${keyWord    } , page=${c.count})}"
+                       th:text="${c.count}"
+                       th:class="${c.count-1==currentPage}? 'btn btn-primary mx-2' : 'bt btn-outline-primary mx-2'"
+                    >
 
-                </a>
-            </li>
-        </ul>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-
 
 
 <script>

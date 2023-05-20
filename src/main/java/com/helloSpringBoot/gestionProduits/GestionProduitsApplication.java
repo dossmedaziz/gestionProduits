@@ -32,8 +32,8 @@ public class GestionProduitsApplication implements CommandLineRunner {
         //  cr.save(new Category(null, "Clothes", null));
         // cr.save(new Category(null, "It", null));
 
-        pr.save(new Product(null, "pc portable", 3000, 5, cr.findById(1).get()));
-        pr.save(new Product(null, "keyboard", 120, 5, cr.findById(1).get()));
-        pr.save(new Product(null, "mouse", 10, 5, cr.findById(1).get()));
+//        pr.save(new Product(null, "pc portable", 3000, 5, cr.findById(1).get()));
+//        pr.save(new Product(null, "keyboard", 120, 5, cr.findById(1).get()));
+//        pr.save(new Product(null, "mouse", 10, 5, cr.findById(1).get()));
     }
 }

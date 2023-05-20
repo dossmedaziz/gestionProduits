@@ -7,7 +7,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -21,7 +26,9 @@ public class ProductService implements IServiceProduct {
     }
 
     @Override
-    public void saveProduct(Product p) {
+    public void saveProduct(Product p, MultipartFile mf) {
+        if (!mf.isEmpty())
+            p.setImage(upload(mf));
         pr.save(p);
     }
 
@@ -37,7 +44,7 @@ public class ProductService implements IServiceProduct {
 
     @Override
     public Page<Product> getProductsByMC(String mc, Pageable p) {
-        return pr.findByNameContains(mc , p);
+        return pr.findByNameContains(mc, p);
     }
 
     @Override
@@ -48,5 +55,21 @@ public class ProductService implements IServiceProduct {
     @Override
     public List<Product> getProductsByCategory(Integer id) {
         return pr.getProductByCategory(id);
+    }
+
+    private String upload(MultipartFile mf) {
+        String name = mf.getOriginalFilename();
+        String tab[] = name.split("\\.");
+        String newName = tab[0] + System.currentTimeMillis() + "." + tab[1];
+
+
+        Path p = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/photos", newName);
+        try {
+            Files.write(p, mf.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return newName;
     }
 }

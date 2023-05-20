@@ -16,7 +16,7 @@
         </div>
 
         <div class="card-body">
-            <form th:method="post" th:action="@{/products/store}">
+            <form th:method="post" th:action="@{/products/store}" enctype="multipart/form-data">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="product_name"
                            name="name" th:value="${product.name}">
@@ -42,6 +42,11 @@
                     <label for="floatingSelect">Category</label>
                 </div>
 
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Photo</label>
+                    <input th:type="file" accept="image/*" class="form-control" id="photo" name="file"/>
+                    <input th:type="hidden" name="photo" th:value="${product.image}"/>
+                </div>
                 <input th:type="hidden" th:value="${product.id}" th:name="id"/>
 
                 <button class="my-5  btn btn-primary" th:type="submit">Submit</button>

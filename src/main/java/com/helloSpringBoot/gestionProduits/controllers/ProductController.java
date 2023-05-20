@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("products")
@@ -48,8 +49,8 @@ public class ProductController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute Product p) {
-        sp.saveProduct(p);
+    public String store(@ModelAttribute Product p, @RequestParam("file") MultipartFile file) {
+        sp.saveProduct(p, file);
         return "redirect:/products";
     }
 
@@ -66,7 +67,7 @@ public class ProductController {
     @PostMapping("/{id}/update")
     public String update(@PathVariable Integer id, @ModelAttribute Product p) {
         System.out.println("update function is called with id: " + id);
-        sp.saveProduct(p);
+        //    sp.saveProduct(p);
         return "redirect:/products";
     }
 }
