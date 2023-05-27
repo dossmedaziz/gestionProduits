@@ -16,6 +16,7 @@ public interface IServiceProduct {
     public List<Product> getAllProducts();
 
     public Page<Product> getProductsByMC(String mc , Pageable p);
+    public List<Product> getProductsByMC(String mc);
 
     public Product getProductById(Integer id);
 

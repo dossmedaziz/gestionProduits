@@ -50,6 +50,11 @@ public class ProductService implements IServiceProduct {
     }
 
     @Override
+    public List<Product> getProductsByMC(String mc) {
+        return pr.findByNameContains(mc);
+    }
+
+    @Override
     public Product getProductById(Integer id) {
         return pr.findById(id).get();
     }

@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     public Page<Product> findByNameContains(String mc , Pageable p);
+    public List<Product> findByNameContains(String mc);
 
     @Query("select p from Product p where p.category.id=:x")
     public List<Product> getProductByCategory(@Param("x") Integer id);
