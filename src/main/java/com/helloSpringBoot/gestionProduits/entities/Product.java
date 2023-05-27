@@ -28,7 +28,7 @@ public class Product {
     private int quantity;
 
     @ManyToOne
-    @NotNull(message = "Category is required")
+   // @NotNull(message = "Category is required")
     private Category category;
 
     private String image;

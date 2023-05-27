@@ -48,7 +48,7 @@
                         <td th:text="${p.name}"></td>
                         <td th:text="${p.price}"></td>
                         <td th:text="${p.quantity}"></td>
-                        <td th:text="${p.category.name}"></td>
+                        <td th:text="${p.category?.name}"></td>
                         <td>
                             <a class="btn btn-danger fa fa-trash" th:href="@{products/delete/{id}(id=${p.id})}"></a>
                             <a class="btn btn-warning fa fa-edit" th:href="@{/products/{id}/edit(id=${p.id})}"></a>
