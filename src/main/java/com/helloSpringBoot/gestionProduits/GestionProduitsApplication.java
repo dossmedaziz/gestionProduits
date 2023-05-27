@@ -29,11 +29,11 @@ public class GestionProduitsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-         cr.save(new Category(null, "Clothes", null));
-         cr.save(new Category(null, "It", null));
+//         cr.save(new Category(null, "Clothes", null));
+//         cr.save(new Category(null, "It", null));
 
-//        pr.save(new Product(null, "pc portable", 3000, 5, cr.findById(1).get()));
-//        pr.save(new Product(null, "keyboard", 120, 5, cr.findById(1).get()));
-//        pr.save(new Product(null, "mouse", 10, 5, cr.findById(1).get()));
+        pr.save(new Product(null, "pc portable", 3000, 5, cr.findById(1).get(), null));
+        pr.save(new Product(null, "keyboard", 120, 5, cr.findById(2).get(), null));
+        pr.save(new Product(null, "mouse", 10, 5, cr.findById(2).get(), null));
     }
 }
