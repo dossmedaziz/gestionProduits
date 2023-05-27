@@ -3,6 +3,7 @@ package com.helloSpringBoot.gestionProduits.controllers;
 import com.helloSpringBoot.gestionProduits.entities.Category;
 import com.helloSpringBoot.gestionProduits.entities.Product;
 import com.helloSpringBoot.gestionProduits.services.IServiceCategory;
+import com.helloSpringBoot.gestionProduits.services.IServiceProduct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryController {
     private IServiceCategory sc;
-
+    private IServiceProduct sp;
 
     @GetMapping("")
     public String getAll(@RequestParam(name = "mc", defaultValue = "") String mc, Model m) {
@@ -59,4 +60,13 @@ public class CategoryController {
 
     }
 
+    @GetMapping("{id}/products")
+    public String getProducts(@PathVariable Integer id, Model m) {
+        Category category = sc.getCategoryById(id) ;
+        List<Product> products = sp.getProductsByCategory(id);
+        m.addAttribute("products", products);
+        m.addAttribute("category", category);
+
+        return "productsCategory";
+    }
 }

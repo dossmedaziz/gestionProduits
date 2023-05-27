@@ -11,6 +11,16 @@
 
 <div layout:fragment="content">
   <h1>Home Screen</h1>
+
+    <ul class="list-group">
+        <a
+                class="list-group-item"
+                th:each="c:${categories}"
+                th:text="${c.getName() + '('+ #lists.size(c.getProducts()) +')'}"
+                th:href="@{categories/{id}/products(id=${c.getId()})}"
+
+        ></a>
+    </ul>
 </div>
 </body>
 </html>
