@@ -4,11 +4,13 @@ import com.helloSpringBoot.gestionProduits.entities.Product;
 import com.helloSpringBoot.gestionProduits.repositories.ProductRepository;
 import com.helloSpringBoot.gestionProduits.services.IServiceProduct;
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -63,8 +65,10 @@ public class ProductService implements IServiceProduct {
         String newName = tab[0] + System.currentTimeMillis() + "." + tab[1];
 
 
-        Path p = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/photos", newName);
         try {
+            File f = new ClassPathResource("static/photos").getFile();
+//        Path p = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/photos", newName);
+            Path p = Paths.get(f.getAbsolutePath() + File.separator, newName);
             Files.write(p, mf.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
